@@ -1,66 +1,38 @@
+using TestBench_MediatorPattern_ProjektAdler.Code.Dependencies.Mediator.Wrapper;
+
 namespace TestBench_MediatorPattern_ProjektAdler.Code.Dependencies.Mediator;
 
-using MediatR;
 
-#region Interfaces
-public interface IMediator : MediatR.IMediator
+public class Mediator : IMediator
 {
-    
+    public virtual Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = new CancellationToken())
+    {
+        throw new NotImplementedException();
+    }
+    public virtual Task Send<TRequest>(TRequest request, CancellationToken cancellationToken = new CancellationToken())
+        where TRequest : IRequest
+    {
+        throw new NotImplementedException();
+    }
+    public virtual Task<object?> Send(object request, CancellationToken cancellationToken = new CancellationToken())
+    {
+        throw new NotImplementedException();
+    }
+    public virtual IAsyncEnumerable<TResponse> CreateStream<TResponse>(IStreamRequest<TResponse> request, CancellationToken cancellationToken = new CancellationToken())
+    {
+        throw new NotImplementedException();
+    }
+    public virtual IAsyncEnumerable<object?> CreateStream(object request, CancellationToken cancellationToken = new CancellationToken())
+    {
+        throw new NotImplementedException();
+    }
+    public virtual Task Publish(object notification, CancellationToken cancellationToken = new CancellationToken())
+    {
+        throw new NotImplementedException();
+    }
+    public virtual Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = new CancellationToken())
+        where TNotification : INotification
+    {
+        throw new NotImplementedException();
+    }
 }
-
-public interface ISender : MediatR.ISender
-{
-        
-}
-
-public interface IPublisher : MediatR.IPublisher
-{
-        
-}
-    
-public interface IRequest : MediatR.IRequest
-{
-        
-}
-    
-public interface IRequest<out TResponse> : MediatR.IRequest<TResponse>
-{
-        
-}
-
-
-
-public interface IRequestHandler<in TRequest> : MediatR.IRequestHandler<TRequest>
-    where TRequest : IRequest
-{
-        
-}
-
-public interface IRequestHandler<in TRequest, TResponse>
-    where TRequest : IRequest<TResponse>
-{
-        
-}
-
-public interface INotificationHandler<in TNotification> : MediatR.INotificationHandler<TNotification>
-    where TNotification : INotification
-{
-        
-}
-
-    
-public interface IStreamRequest<out TResponse> : MediatR.IStreamRequest<TResponse>
-{
-        
-}
-
-public interface IStreamRequestHandler<in TRequest, out TResponse> : MediatR.IStreamRequestHandler<TRequest, TResponse>
-    where TRequest : IStreamRequest<TResponse>
-{
-        
-}
-
-#endregion
-
-
-

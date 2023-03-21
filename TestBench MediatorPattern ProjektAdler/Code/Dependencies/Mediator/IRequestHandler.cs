@@ -1,3 +1,0 @@
-namespace TestBench_MediatorPattern_ProjektAdler.Code.Dependencies.Mediator;
-
-
