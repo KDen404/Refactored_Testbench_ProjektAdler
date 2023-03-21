@@ -1,3 +1,3 @@
-namespace TestBench_MediatorPattern_ProjektAdler.Code.Dependencies.Mediator.Mediator;
+namespace TestBench_MediatorPattern_ProjektAdler.Code.Dependencies.Mediator;
 
-public interface IRequestHandler<Ping> : MediatR.IRequestHandler<Ping>
+
