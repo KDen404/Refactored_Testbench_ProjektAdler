@@ -1,5 +1,5 @@
 ﻿@page
-
+@namespace TestBench_MediatorPattern_ProjektAdler.Pages
 
 @model IndexModel
 @{
@@ -8,10 +8,16 @@
 
 
 <div id="structure" style="align-content: center">
-    <div id="component1">
-        <component type="ReloadOtherComponent"/>
-    </div>
-    <div id="component2">
-        <component type="SpaceWithComponentsWhichNeedToBeReloaded"/>
-    </div>
+    @using (Html.BeginForm())
+    {
+        <div id="component1">
+            <ButtonComponent />
+        </div>
+        
+        <div id="component2">
+            <CounterComponent />
+        </div>
+    }
 </div>
+
+

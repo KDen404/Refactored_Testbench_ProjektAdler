@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 
 namespace TestBench_MediatorPattern_ProjektAdler.Code.Dependencies.Mediator;
@@ -15,7 +16,7 @@ public class BaseMediatorQueryHandler : IRequestHandler<BaseMediatorQuery, Respo
         var action = request.Action;
         try
         {
-            action(buf);
+            action();
         }
         catch (Exception error)
         {
@@ -26,9 +27,9 @@ public class BaseMediatorQueryHandler : IRequestHandler<BaseMediatorQuery, Respo
 }
 public abstract class BaseMediatorQuery : IRequest<Response>
 {
-    public object Name;
-    public Action<object> Action;
-    public BaseMediatorQuery(object name, Action<object> action)
+    public string Name;
+    public Action Action;
+    public BaseMediatorQuery(string name, Action action)
     {
         Name = name;
         Action = action;

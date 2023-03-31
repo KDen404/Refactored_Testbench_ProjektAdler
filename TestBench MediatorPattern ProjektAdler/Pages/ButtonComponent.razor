@@ -1,0 +1,24 @@
+
+@using TestBench_MediatorPattern_ProjektAdler.Code
+@using TestBench_MediatorPattern_ProjektAdler.Pages;
+
+<h3>ReloadOtherComponent</h3>
+@code {
+    
+    public static class TestButton
+    {
+        public static async void Click()
+        {
+            await TestMediator.mediator.Send(new PageComponentMediatorQuery( 
+                "CounterLogic", 
+                CounterComponent.CounterLogic.Increment
+                ));
+        }
+    }
+
+    
+}
+<div>
+    <button onclick=@TestButton.Click></button>
+</div>
+

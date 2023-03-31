@@ -16,7 +16,7 @@ public class PageComponentMediator : BaseMediator
 
 public class PageComponentMediatorQuery : BaseMediatorQuery
 {
-    public PageComponentMediatorQuery(object name, Action<object> action) : base(name, action)
+    public PageComponentMediatorQuery(string name, Action action) : base(name, action)
     {
     }
 }

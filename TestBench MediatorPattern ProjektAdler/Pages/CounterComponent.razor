@@ -1,0 +1,16 @@
+<h3>SpaceWithComponentsWhichNeedToBeReloaded</h3>
+
+
+
+@code {
+
+    public static class CounterLogic
+    {
+        private static uint _value = 0;
+        public static uint Value => _value;
+        public static void Increment() => _value++;
+    }
+}
+<div>
+    The Current count is: @CounterLogic.Value
+</div>
