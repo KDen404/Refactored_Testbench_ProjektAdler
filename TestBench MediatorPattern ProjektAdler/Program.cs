@@ -1,7 +1,15 @@
 var builder = WebApplication.CreateBuilder(args);
 
+var defBuilder = Host.CreateDefaultBuilder(args);
+
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+//Mediatr dependency injection
+defBuilder.ConfigureServices((hostContext, services) =>
+{
+    services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<TestBench_MediatorPattern_ProjektAdler.Code.Dependencies.Mediator.BaseMediator>());
+});
 
 var app = builder.Build();
 

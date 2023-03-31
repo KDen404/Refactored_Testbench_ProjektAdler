@@ -1,38 +1,50 @@
-using TestBench_MediatorPattern_ProjektAdler.Code.Dependencies.Mediator.Wrapper;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace TestBench_MediatorPattern_ProjektAdler.Code.Dependencies.Mediator;
 
-
-public class Mediator : IMediator
+public class Response
 {
-    public virtual Task<TResponse> Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken = new CancellationToken())
+    public object? Output { get; set; }
+}
+public class BaseMediatorQueryHandler : IRequestHandler<BaseMediatorQuery, Response>
+{
+    public virtual async Task<Response> Handle(BaseMediatorQuery request, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var buf = request.Name;
+        var action = request.Action;
+        try
+        {
+            action(buf);
+        }
+        catch (Exception error)
+        {
+            return Task.FromResult(new Response { Output = false }).Result;
+        }
+        return Task.FromResult(new Response { Output = true }).Result;
     }
-    public virtual Task Send<TRequest>(TRequest request, CancellationToken cancellationToken = new CancellationToken())
-        where TRequest : IRequest
+}
+public abstract class BaseMediatorQuery : IRequest<Response>
+{
+    public object Name;
+    public Action<object> Action;
+    public BaseMediatorQuery(object name, Action<object> action)
     {
-        throw new NotImplementedException();
+        Name = name;
+        Action = action;
     }
-    public virtual Task<object?> Send(object request, CancellationToken cancellationToken = new CancellationToken())
+}
+public abstract class BaseMediator
+{
+    protected BaseMediatorQueryHandler Handler;
+    public BaseMediator(BaseMediatorQueryHandler handler)
     {
-        throw new NotImplementedException();
+        Handler = handler;
     }
-    public virtual IAsyncEnumerable<TResponse> CreateStream<TResponse>(IStreamRequest<TResponse> request, CancellationToken cancellationToken = new CancellationToken())
+    [HttpGet]
+    public async Task<IActionResult> Send(BaseMediatorQuery query)
     {
-        throw new NotImplementedException();
-    }
-    public virtual IAsyncEnumerable<object?> CreateStream(object request, CancellationToken cancellationToken = new CancellationToken())
-    {
-        throw new NotImplementedException();
-    }
-    public virtual Task Publish(object notification, CancellationToken cancellationToken = new CancellationToken())
-    {
-        throw new NotImplementedException();
-    }
-    public virtual Task Publish<TNotification>(TNotification notification, CancellationToken cancellationToken = new CancellationToken())
-        where TNotification : INotification
-    {
-        throw new NotImplementedException();
+        var result = await Handler.Handle(query, CancellationToken.None);
+        return new OkObjectResult(result);
     }
 }
